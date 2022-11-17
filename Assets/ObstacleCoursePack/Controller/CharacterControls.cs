@@ -34,6 +34,7 @@ public class CharacterControls : MonoBehaviour {
 	}
 	
 	bool IsGrounded (){
+		//Returns true if character (transform) is colliding with the top of the ground
 		return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
 	}
 	
@@ -46,6 +47,7 @@ public class CharacterControls : MonoBehaviour {
 		Cursor.visible = false;
 	}
 	
+	//Not frame dependent update
 	void FixedUpdate () {
 		if (canMove)
 		{
@@ -75,8 +77,8 @@ public class CharacterControls : MonoBehaviour {
 					rb.velocity /= 1.1f;
 				}
 				Vector3 velocityChange = (targetVelocity - velocity);
-				velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
-				velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+				velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange); //Clamp ensures number
+				velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange); //does not exceed (maxVelocityChange)
 				velocityChange.y = 0;
 				if (!slide)
 				{
@@ -95,7 +97,7 @@ public class CharacterControls : MonoBehaviour {
 					rb.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
 				}
 			}
-			else
+			else //If in the air (!IsGrounded())
 			{
 				if (!slide)
 				{
@@ -122,10 +124,13 @@ public class CharacterControls : MonoBehaviour {
 		rb.AddForce(new Vector3(0, -gravity * GetComponent<Rigidbody>().mass, 0));
 	}
 
+	//Updates every frame
 	private void Update()
 	{
-		float h = Input.GetAxis("Horizontal");
-		float v = Input.GetAxis("Vertical");
+		//Provides controls for the player and is compatible with any kind of controller input
+		//Defaults to WASD for PC
+		float h = Input.GetAxis("Horizontal"); //A and D
+		float v = Input.GetAxis("Vertical"); //W and S
 
 		Vector3 v2 = v * cam.transform.forward; //Vertical axis to which I want to move with respect to the camera
 		Vector3 h2 = h * cam.transform.right; //Horizontal axis to which I want to move with respect to the camera
@@ -157,7 +162,7 @@ public class CharacterControls : MonoBehaviour {
 
 		pushForce = velocityF.magnitude;
 		pushDir = Vector3.Normalize(velocityF);
-		StartCoroutine(Decrease(velocityF.magnitude, time));
+		StartCoroutine(Decrease(velocityF.magnitude, time)); //Pauses execution until "Decrease" is finished
 	}
 
 	public void LoadCheckPoint()
