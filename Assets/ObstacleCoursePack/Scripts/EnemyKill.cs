@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class EnemyKill : MonoBehaviour
 {
-    
-    void OnTriggerEnter(Collider col)
+
+    void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Player")
         {
 			col.gameObject.GetComponent<CharacterControls>().LoadCheckPoint();
+            transform.position = new Vector3(0, 0.25f, 8);
 		}
 	}
 }
