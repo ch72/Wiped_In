@@ -9,6 +9,7 @@ public class LightKillZone : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
 			col.gameObject.GetComponent<CharacterControls>().LoadCheckPoint();
+            EnemyKill.resetEnemyPositions();
 		}
 	}
 }
