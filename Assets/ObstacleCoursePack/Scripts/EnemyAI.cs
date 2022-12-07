@@ -29,18 +29,22 @@ public class EnemyAI : MonoBehaviour
     {
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
-        if (playerInSightRange) ChasePlayer();
+        if (playerInSight()) ChasePlayer();
 
-        if(mAnimator != null && oldPlayerInSightRangeValue != playerInSightRange) {
+        if(mAnimator != null && oldPlayerInSightRangeValue != playerInSight()) {
             changeAnimation();
         }
     }
 
+    private bool playerInSight() {
+        return (playerInSightRange && player.position.z < 10.2);
+    }
+
     private void changeAnimation()
     {
-        if (playerInSightRange) mAnimator.SetTrigger("Run");
+        if (playerInSight()) mAnimator.SetTrigger("Run");
         else mAnimator.SetTrigger("Idle");
-        oldPlayerInSightRangeValue = playerInSightRange;
+        oldPlayerInSightRangeValue = playerInSight();
     }
 
     private void ChasePlayer()
