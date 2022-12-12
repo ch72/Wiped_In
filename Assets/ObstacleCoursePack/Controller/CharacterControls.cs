@@ -25,11 +25,17 @@ public class CharacterControls : MonoBehaviour {
 	private float pushForce;
 	private Vector3 pushDir;
 
+	public AudioClip BackgroundMusic;
+	public AudioClip[] PlayerYells;
+	public AudioClip[] PlayerJumps;
+	public AudioClip[] PlayerFootsteps;
+
 	public Vector3 checkPoint;
 	private bool slide = false;
 
 	void  Start (){
 		// get the distance to ground
+		SoundManager.Instance.PlayMusic(BackgroundMusic);
 		distToGround = GetComponent<Collider>().bounds.extents.y;
 	}
 	
@@ -94,7 +100,8 @@ public class CharacterControls : MonoBehaviour {
 				// Jump
 				if (IsGrounded() && Input.GetButton("Jump"))
 				{
-                   rb.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+                    rb.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+					SoundManager.Instance.RandomSoundEffect(PlayerJumps);
 				}
 			}
 			else //If in the air (!IsGrounded())
