@@ -29,8 +29,10 @@ public class CharacterControls : MonoBehaviour {
 	public AudioClip[] PlayerYells;
 	public AudioClip[] PlayerJumps;
 	public AudioClip[] PlayerFootsteps;
+	public AudioSource footsteps_normal;
+    public AudioSource footsteps_slime;
 
-	private Animator mAnimator;
+    private Animator mAnimator;
 	private bool isRunning = false;
 
 	public Vector3 checkPoint;
@@ -149,9 +151,18 @@ public class CharacterControls : MonoBehaviour {
 
 		if (mAnimator != null) {
 			if (IsKeyDown() && !isRunning && mAnimator != null) {
+				if(slide == true)
+				{
+					footsteps_slime.enabled = true;
+				} else
+				{
+                    footsteps_normal.enabled = true;
+                }
 				isRunning = true;
 				mAnimator.SetTrigger("Run");
 			} else if (!IsKeyDown() && isRunning) {
+				footsteps_slime.enabled = false;
+				footsteps_normal.enabled = false;
 				isRunning = false;
 				mAnimator.SetTrigger("Idle");
 			}
