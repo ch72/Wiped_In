@@ -7,7 +7,7 @@ using TMPro;
 
 public class Stopwatch : MonoBehaviour
 {
-    bool stopwatchActive = false;
+    public static bool stopwatchActive = false;
     float currentTime;
     public TextMeshProUGUI currentTimeText;
 
@@ -32,7 +32,7 @@ public class Stopwatch : MonoBehaviour
         stopwatchActive = true;
     }
 
-    public void StopStopwatch(){
+    public static void StopStopwatch(){
         stopwatchActive = false;
     }
 }

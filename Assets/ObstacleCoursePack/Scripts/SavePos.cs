@@ -10,6 +10,7 @@ public class SavePos : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Player")
 		{
+			Debug.Log("here");
 			col.gameObject.GetComponent<CharacterControls>().checkPoint = checkPoint.position;
 		}
 	}
