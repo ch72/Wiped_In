@@ -35,7 +35,7 @@ public class CharacterControls : MonoBehaviour {
 	
 	bool IsGrounded (){
 		//Returns true if character (transform) is colliding with the top of the ground
-		return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+		return Physics.Raycast(transform.position, -Vector3.up, distToGround - 0.8f);
 	}
 	
 	void Awake () {
@@ -94,7 +94,7 @@ public class CharacterControls : MonoBehaviour {
 				// Jump
 				if (IsGrounded() && Input.GetButton("Jump"))
 				{
-					rb.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+                   rb.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
 				}
 			}
 			else //If in the air (!IsGrounded())
