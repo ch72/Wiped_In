@@ -148,7 +148,13 @@ public class CharacterControls : MonoBehaviour {
 		Vector3 v2 = v * cam.transform.forward; //Vertical axis to which I want to move with respect to the camera
 		Vector3 h2 = h * cam.transform.right; //Horizontal axis to which I want to move with respect to the camera
 		moveDir = (v2 + h2).normalized; //Global position to which I want to move in magnitude 1
-
+		if(slide){
+			mAnimator.SetTrigger("Idle");
+			mAnimator.gameObject.GetComponent<Animator>().enabled = false;
+		}
+		else{
+			mAnimator.gameObject.GetComponent<Animator>().enabled = true;
+		}
 		if (mAnimator != null) {
 			if (IsKeyDown() && !isRunning && mAnimator != null) {
 				if(slide == true)
@@ -169,7 +175,7 @@ public class CharacterControls : MonoBehaviour {
 		}
 
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround + 0.1f))
+		if (Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround - 0.75f))
 		{
 			if (hit.transform.tag == "Slide")
 			{
