@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Finished : MonoBehaviour
 {
+    public AudioClip[] CelebrationSounds;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +15,7 @@ public class Finished : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Player")
 		{
+            SoundManager.Instance.RandomSoundEffect(CelebrationSounds);
             Stopwatch.StopStopwatch();
 		}
 	}

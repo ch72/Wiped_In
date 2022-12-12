@@ -25,12 +25,22 @@ public class CharacterControls : MonoBehaviour {
 	private float pushForce;
 	private Vector3 pushDir;
 
+	public AudioClip BackgroundMusic;
+	public AudioClip[] PlayerYells;
+	public AudioClip[] PlayerJumps;
+	public AudioClip[] PlayerFootsteps;
+
+	private Animator mAnimator;
+	private bool isRunning = false;
+
 	public Vector3 checkPoint;
 	private bool slide = false;
 
 	void  Start (){
 		// get the distance to ground
+		SoundManager.Instance.PlayMusic(BackgroundMusic);
 		distToGround = GetComponent<Collider>().bounds.extents.y;
+		mAnimator = GetComponent<Animator>();
 	}
 	
 	bool IsGrounded (){
@@ -94,7 +104,8 @@ public class CharacterControls : MonoBehaviour {
 				// Jump
 				if (IsGrounded() && Input.GetButton("Jump"))
 				{
-                   rb.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+                    rb.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+					SoundManager.Instance.RandomSoundEffect(PlayerJumps);
 				}
 			}
 			else //If in the air (!IsGrounded())
@@ -136,6 +147,16 @@ public class CharacterControls : MonoBehaviour {
 		Vector3 h2 = h * cam.transform.right; //Horizontal axis to which I want to move with respect to the camera
 		moveDir = (v2 + h2).normalized; //Global position to which I want to move in magnitude 1
 
+		if (mAnimator != null) {
+			if (IsKeyDown() && !isRunning && mAnimator != null) {
+				isRunning = true;
+				mAnimator.SetTrigger("Run");
+			} else if (!IsKeyDown() && isRunning) {
+				isRunning = false;
+				mAnimator.SetTrigger("Idle");
+			}
+		}
+
 		RaycastHit hit;
 		if (Physics.Raycast(transform.position, -Vector3.up, out hit, distToGround + 0.1f))
 		{
@@ -168,6 +189,11 @@ public class CharacterControls : MonoBehaviour {
 	public void LoadCheckPoint()
 	{
 		transform.position = checkPoint;
+	}
+
+	private bool IsKeyDown()
+	{
+		return (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"));
 	}
 
 	private IEnumerator Decrease(float value, float duration)

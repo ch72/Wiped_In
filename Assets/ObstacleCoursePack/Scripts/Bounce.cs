@@ -8,6 +8,8 @@ public class Bounce : MonoBehaviour
 	public float stunTime = 0.5f;
 	private Vector3 hitDir;
 
+	public AudioClip[] ImpactNoise;
+
 	void OnCollisionEnter(Collision collision)
 	{
 		foreach (ContactPoint contact in collision.contacts)
@@ -17,6 +19,7 @@ public class Bounce : MonoBehaviour
 			{
 				hitDir = contact.normal;
 				collision.gameObject.GetComponent<CharacterControls>().HitPlayer(-hitDir * force, stunTime);
+				SoundManager.Instance.RandomSoundEffect(ImpactNoise);
 				return;
 			}
 		}
