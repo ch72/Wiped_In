@@ -35,7 +35,7 @@ public class CharacterControls : MonoBehaviour {
 	
 	bool IsGrounded (){
 		//Returns true if character (transform) is colliding with the top of the ground
-		return Physics.Raycast(transform.position, -Vector3.up, distToGround - 0.8f);
+		return Physics.Raycast(transform.position, -Vector3.up, distToGround - 0.75f);
 	}
 	
 	void Awake () {
