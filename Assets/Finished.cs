@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Finished : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -10,11 +10,12 @@ public class NewBehaviourScript : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider col){
-        if(col.gameObject.tag == "Player"){
-            Debug.Log("here");
+    void OnTriggerEnter(Collider col)
+	{
+		if (col.gameObject.tag == "Player")
+		{
             Stopwatch.StopStopwatch();
-        }
-    }
+		}
+	}
 }
 
