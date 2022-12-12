@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
 
     public void RandomSoundEffect(params AudioClip[] clips)
     {
-        int randomIndex = Random.Range(0, clips.Length);
+        int randomIndex = Random.Range(0, (clips.Length - 1));
         EffectsSource.clip = clips[randomIndex];
         EffectsSource.Play();
     }
