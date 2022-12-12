@@ -94,7 +94,7 @@ public class CharacterControls : MonoBehaviour {
 				// Jump
 				if (IsGrounded() && Input.GetButton("Jump"))
 				{
-					rb.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
+                   rb.velocity = new Vector3(velocity.x, CalculateJumpVerticalSpeed(), velocity.z);
 				}
 			}
 			else //If in the air (!IsGrounded())
