@@ -6,23 +6,37 @@ using UnityEngine.SceneManagement;
 public class SceneManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    public void LoadScene(string sceneName)
     {
+        StartCoroutine(LoadSceneAsync(sceneName));
+    }
 
+    private IEnumerator LoadSceneAsync(string sceneName)
+    {
+        AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private void UnloadScene(string sceneName)
+    {
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneName);
     }
 
     // Function to load the start scene
     public void LoadStartScene()
     {
-        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("SampleScene");
-        UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");
+        UnloadScene("SampleScene");
+        LoadScene("StartScene");
     }
 
     // Function to load the game scene
     public void LoadGameScene()
     {
-        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("StartScene");
-        UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+        UnloadScene("StartScene");
+        LoadScene("SampleScene");
     }
 
     // Function to exit the game

@@ -36,4 +36,9 @@ public class PauseMenuController : MonoBehaviour
         Time.timeScale = 1;
         tracker = true;
     }
+    public void resetGameTime()
+    {
+        Time.timeScale = 1;
+        tracker = !tracker;
+    }
 }
