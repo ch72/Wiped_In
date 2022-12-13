@@ -13,11 +13,17 @@ public class EnemyAI : MonoBehaviour
     public bool playerInSightRange;
     private bool oldPlayerInSightRangeValue;
 
+    private bool newShout = false;
+    private float timeRemaining = 0;
+    public float voiceLineTime = 3;
+    public AudioClip[] EnemyYells;
+
     private Animator mAnimator;
 
     // Start is called before the first frame update
     void Start()
     {
+        timeRemaining = voiceLineTime;
         player = GameObject.Find("PlayerUpdated").transform;
         agent = GetComponent<NavMeshAgent>();
 
@@ -27,9 +33,20 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+        } else
+        {
+            newShout = true;
+            timeRemaining = voiceLineTime;
+        }
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
-        if (playerInSight()) ChasePlayer();
+        if (playerInSight())
+        {
+            ChasePlayer();
+        }
 
         if(mAnimator != null && oldPlayerInSightRangeValue != playerInSight()) {
             changeAnimation();
@@ -50,5 +67,10 @@ public class EnemyAI : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        if (newShout == true)
+        {
+            SoundManager.Instance.RandomSoundEffectEnemy(EnemyYells);
+            newShout = false;
+        }
     }
 }

@@ -5,10 +5,11 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
+    public static SoundManager newInstance;
 
     public AudioSource EffectsSource;
     public AudioSource MusicSource;
-
+    public AudioSource EnemySource;
 
     private void Awake()
     {
@@ -20,6 +21,10 @@ public class SoundManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+        if(newInstance == null)
+        {
+            newInstance = this;
         }
         DontDestroyOnLoad(gameObject);
     }
@@ -41,5 +46,12 @@ public class SoundManager : MonoBehaviour
         int randomIndex = Random.Range(0, (clips.Length - 1));
         EffectsSource.clip = clips[randomIndex];
         EffectsSource.Play();
+    }
+
+    public void RandomSoundEffectEnemy(params AudioClip[] clips)
+    {
+        int randomIndex = Random.Range(0, (clips.Length - 1));
+        EnemySource.clip = clips[randomIndex];
+        EnemySource.Play();
     }
 }
