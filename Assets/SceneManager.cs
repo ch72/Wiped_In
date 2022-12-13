@@ -14,12 +14,14 @@ public class SceneManager : MonoBehaviour
     // Function to load the start scene
     public void LoadStartScene()
     {
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("SampleScene");
         UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");
     }
 
     // Function to load the game scene
     public void LoadGameScene()
     {
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("StartScene");
         UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }
 
