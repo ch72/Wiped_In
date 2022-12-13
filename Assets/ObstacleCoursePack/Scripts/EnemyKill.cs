@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class EnemyKill : MonoBehaviour
 {
+    public AudioClip[] PlayerYells;
 
     void OnCollisionEnter(Collision col)
     {
         //If player "dies"
         if (col.gameObject.tag == "Player")
         {
+            SoundManager.Instance.RandomSoundEffect(PlayerYells);
             col.gameObject.GetComponent<CharacterControls>().LoadCheckPoint();
             resetEnemyPositions();
 		}
