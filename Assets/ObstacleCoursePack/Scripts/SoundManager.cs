@@ -5,7 +5,6 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
-    public static SoundManager newInstance;
 
     public AudioSource EffectsSource;
     public AudioSource MusicSource;
@@ -21,10 +20,6 @@ public class SoundManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-        if(newInstance == null)
-        {
-            newInstance = this;
         }
         DontDestroyOnLoad(gameObject);
     }
