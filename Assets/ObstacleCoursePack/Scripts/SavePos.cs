@@ -18,7 +18,6 @@ public class SavePos : MonoBehaviour
 
             }
 			soundTracker = true;
-            Debug.Log("here");
 			col.gameObject.GetComponent<CharacterControls>().checkPoint = checkPoint.position;
 		}
 	}
