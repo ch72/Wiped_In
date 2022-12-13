@@ -11,12 +11,14 @@ public class Finished : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider col)
+    IEnumerator OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.tag == "Player")
 		{
             SoundManager.Instance.RandomSoundEffect(CelebrationSounds);
             Stopwatch.StopStopwatch();
+            yield return new WaitForSeconds(5);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("StartScene");
 		}
 	}
 }
