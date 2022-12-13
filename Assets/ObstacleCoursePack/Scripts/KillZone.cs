@@ -10,9 +10,9 @@ public class KillZone : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-			col.gameObject.GetComponent<CharacterControls>().LoadCheckPoint();
-            EnemyKill.resetEnemyPositions();
             SoundManager.Instance.RandomSoundEffect(PlayerDeaths);
+            col.gameObject.GetComponent<CharacterControls>().LoadCheckPoint();
+            EnemyKill.resetEnemyPositions();
 		}
 	}
 }
