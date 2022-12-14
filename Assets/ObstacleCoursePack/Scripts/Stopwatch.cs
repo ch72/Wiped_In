@@ -12,7 +12,6 @@ public class Stopwatch : MonoBehaviour
     public TextMeshProUGUI currentTimeText;
     public TextMeshProUGUI bestTimeText;
     public float bestTime = 0;
-    private bool firstScore = true;
 
     // Start is called before the first frame update
     void Start()
@@ -54,15 +53,7 @@ public class Stopwatch : MonoBehaviour
     }
     public void updateHighScore()
     {
-        if (firstScore)
-        {
-            bestTime = currentTime;
-            TimeSpan time = TimeSpan.FromSeconds(bestTime);
-            bestTimeText.text = "Best: " + time.ToString(@"mm\:ss\:ff");
-            PlayerPrefs.SetFloat("bestTime", bestTime);
-            firstScore = false;
-        }
-        if (currentTime < bestTime)
+        if (currentTime < bestTime || bestTime == 0)
         {
             bestTime = currentTime;
             TimeSpan time = TimeSpan.FromSeconds(bestTime);
